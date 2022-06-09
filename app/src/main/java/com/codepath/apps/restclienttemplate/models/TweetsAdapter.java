@@ -2,6 +2,7 @@ package com.codepath.apps.restclienttemplate.models;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.codepath.apps.restclienttemplate.ComposeActivity;
+import com.codepath.apps.restclienttemplate.ComposeFragment;
 import com.codepath.apps.restclienttemplate.ProfileActivity;
 import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.TwitterApp;
@@ -161,8 +163,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
 
                                 try {
                                     tweet.favorited = updatedTweet.getBoolean("favorited");
-                                    ivHeart.setImageResource(R.drawable.heart_filled);
                                     tweet.heartCount = updatedTweet.getInt("favorite_count");
+                                    ivHeart.setImageResource(R.drawable.heart_filled);
                                     tvHeartCount.setText(tweet.heartCount.toString());
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -184,8 +186,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
 
                                 try {
                                     tweet.favorited = updatedTweet.getBoolean("favorited");
-                                    ivHeart.setImageResource(R.drawable.heart);
                                     tweet.heartCount = updatedTweet.getInt("favorite_count");
+                                    ivHeart.setImageResource(R.drawable.heart);
                                     tvHeartCount.setText(tweet.heartCount.toString());
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -216,6 +218,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                     Intent i = new Intent(view.getContext(), ComposeActivity.class);
                     i.putExtra("User", tweet.user.screenName.toString());
                     context.startActivity(i);
+
                 }
             });
         }

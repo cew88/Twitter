@@ -25,7 +25,7 @@ import okhttp3.Headers;
 
 public class ComposeActivity extends AppCompatActivity {
 
-    public static int MAX_TWEET_LENGTH = 140;
+    public static int MAX_TWEET_LENGTH = 280;
     public static final String TAG  = "ComposeActivity";
     public String screenName;
     TwitterClient client = TwitterApp.getRestClient(this);
@@ -48,10 +48,13 @@ public class ComposeActivity extends AppCompatActivity {
         Intent intent = getIntent();
         screenName = intent.getExtras().getString("User");
 
-        if (screenName != "none"){
+        if (screenName.length() != 0){
             // setHint does not work
             // etCompose.setHint("Tweet your reply");
             etCompose.setText("Replying to @" + screenName.toString() + "\n");
+        }
+        else {
+            etCompose.setText("");
         }
 
         // Set click listener on the button

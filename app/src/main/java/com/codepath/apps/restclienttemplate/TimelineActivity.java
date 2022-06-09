@@ -7,6 +7,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,6 +33,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
@@ -50,7 +52,6 @@ public class TimelineActivity extends AppCompatActivity {
     List<Tweet> tweets;
     TweetsAdapter adapter;
     FloatingActionButton composeBtn;
-    Integer lowestId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,22 +74,12 @@ public class TimelineActivity extends AppCompatActivity {
 
         // Find the recycler view
         rvTweets = findViewById(R.id.rvTweets);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         // Initialize the list of tweets and adapter
         tweets = new ArrayList<>();
         adapter = new TweetsAdapter(this, tweets);
         // Recycler view setup: layout manager and the adapter
-        rvTweets.setLayoutManager(new LinearLayoutManager(this));
-
-        composeBtn = findViewById(R.id.floating_compose_btn);
-        composeBtn.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(view.getContext(), ComposeActivity.class);
-                i.putExtra("User", "none");
-                startActivityForResult(i, REQUEST_CODE);
-            }
-        });
+        rvTweets.setLayoutManager(linearLayoutManager);
 
         DividerItemDecoration divider = new DividerItemDecoration(rvTweets.getContext(), DividerItemDecoration.VERTICAL);
         divider.setDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.divider));
@@ -96,17 +87,54 @@ public class TimelineActivity extends AppCompatActivity {
         rvTweets.setAdapter(adapter);
         populateHomeTimeline();
 
-//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-//        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
-//            @Override
-//            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-//                loadNextDataFromApi(page);
-//            }
-//        };
-//        rvTweets.addOnScrollListener(scrollListener);
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                loadNextDataFromApi(page);
+            }
+        };
+        rvTweets.addOnScrollListener(scrollListener);
+
+        composeBtn = findViewById(R.id.floating_compose_btn);
+        composeBtn.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+//                Intent i = new Intent(view.getContext(), ComposeActivity.class);
+//                i.putExtra("User", "");
+//                startActivityForResult(i, REQUEST_CODE);
+
+
+                Bundle bundle = new Bundle();
+                bundle.putString("User", "");
+                ComposeFragment fragobj = new ComposeFragment();
+                fragobj.setArguments(bundle);
+                showEditDialog();
+            }
+        });
     }
 
-    public void loadNextDataFromApi(int offset){
+    public void loadNextDataFromApi(int page){
+        // Send the network request to fetch the updated data
+        client.getHomeTimeline(page+1, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                Log.i(TAG, "Endless scrolling success! " + json.toString());
+                JSONArray jsonArray = json.jsonArray;
+                try {
+                    tweets.addAll(Tweet.fromJsonArray(jsonArray));
+                    adapter.notifyDataSetChanged();
+                } catch (JSONException e) {
+                    Log.e(TAG, "JSON exception", e);
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                Log.i(TAG, "onFailure" + response, throwable);
+            }
+        });
     }
 
     @Override
@@ -160,8 +188,8 @@ public class TimelineActivity extends AppCompatActivity {
                 Intent i = new Intent(this, ProfileActivity.class);
 
                 // TO DO
-                i.putExtra("User", Parcels.wrap(tweets.get(0).user));
-                startActivity(i);
+//                i.putExtra("User", Parcels.wrap(tweets.get(0).user));
+//                startActivity(i);
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -202,6 +230,15 @@ public class TimelineActivity extends AppCompatActivity {
                 Log.i(TAG, "onFailure" + response, throwable);
             }
         });
+    }
+
+
+    private void showEditDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        ComposeFragment editNameDialogFragment = ComposeFragment.newInstance();
+        editNameDialogFragment.show(fm, "composeFragment");
+        // Refresh the page after closing the dialog or a tweet is submitted
+        fetchTimelineAsync(0);
     }
 
 }
