@@ -2,15 +2,21 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-        android:id="@+id/compose_btn"
-        android:icon="@drawable/feather"
-        android:title="Compose"
-        app:showAsAction="ifRoom"/>
+<!--    <item-->
+<!--        android:id="@+id/compose_btn"-->
+<!--        android:icon="@drawable/feather_white"-->
+<!--        android:title="Compose"-->
+<!--        app:showAsAction="ifRoom"/>-->
+
+        <item
+            android:id="@+id/profile_btn"
+            android:icon="@drawable/profile"
+            android:title="Compose"
+            app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/logout_btn"
-        android:icon="@drawable/exit"
+        android:icon="@drawable/exit_white"
         android:title="Logout"
         app:showAsAction="ifRoom" />
 
