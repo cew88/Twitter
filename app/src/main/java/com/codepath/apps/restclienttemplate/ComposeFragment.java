@@ -98,7 +98,7 @@ public class ComposeFragment extends DialogFragment {
                             Tweet tweet = Tweet.fromJson(jsonObject);
                             Log.i(TAG, "Published Tweet: " + tweet);
                             // Return back to the timeline activity; refreshes the page
-                            Intent i = new Intent();
+                            Intent i = new Intent(getActivity(), TimelineActivity.class);
                             startActivity(i);
                             // Close the activity and pass to parent
                             getDialog().dismiss();
