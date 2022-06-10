@@ -99,15 +99,15 @@ public class TimelineActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                // Intent i = new Intent(view.getContext(), ComposeActivity.class);
-                // i.putExtra("User", "");
-                // startActivityForResult(i, REQUEST_CODE);
+                 Intent i = new Intent(view.getContext(), ComposeActivity.class);
+                 i.putExtra("User", "");
+                 startActivityForResult(i, REQUEST_CODE);
 
-                Bundle bundle = new Bundle();
-                bundle.putString("User", "");
-                ComposeFragment fragobj = new ComposeFragment();
-                fragobj.setArguments(bundle);
-                showEditDialog();
+//                Bundle bundle = new Bundle();
+//                bundle.putString("User", "");
+//                ComposeFragment fragobj = new ComposeFragment();
+//                fragobj.setArguments(bundle);
+//                showEditDialog();
             }
         });
     }

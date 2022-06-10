@@ -1,13 +1,5 @@
 package com.codepath.apps.restclienttemplate.models;
 
-import android.util.Log;
-
-import androidx.room.ColumnInfo;
-import androidx.room.Embedded;
-
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,11 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 import org.parceler.Parcel;
 
+@Parcel
+
 public class Tweet {
     public String body;
     public String createdAt;
     public User user;
-    public JSONObject extendedEntities;
     public String displayUrl = "";
     public Integer heartCount;
     public Integer retweetCount;
@@ -42,8 +35,8 @@ public class Tweet {
 
 
         if (jsonObject.has("extended_entities")){
-            tweet.extendedEntities = jsonObject.getJSONObject("extended_entities");
-            JSONObject media = tweet.extendedEntities.getJSONArray("media").getJSONObject(0);
+            JSONObject extendedEntities = jsonObject.getJSONObject("extended_entities");
+            JSONObject media = extendedEntities.getJSONArray("media").getJSONObject(0);
             tweet.displayUrl= String.format("%s:large", media.getString("media_url_https"));
         }
 
