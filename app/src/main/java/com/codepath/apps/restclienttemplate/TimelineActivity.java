@@ -236,7 +236,7 @@ public class TimelineActivity extends AppCompatActivity {
         composeFragment.show(fm, "composeFragment");
         // Refresh the page after closing the dialog or a tweet is submitted <-- NOT NECESSARY
         // the activity is restarted when the Tweet button is clicked
-        // fetchTimelineAsync(0);
+         fetchTimelineAsync(0);
     }
 
 }

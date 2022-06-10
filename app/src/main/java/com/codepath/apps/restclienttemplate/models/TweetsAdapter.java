@@ -193,7 +193,9 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                                     // Calls to API are slow, update manually the text for more seamless UX
                                     ivHeart.setImageResource(R.drawable.heart);
                                     // tvHeartCount.setText(tweet.heartCount.toString());
-                                    tvHeartCount.setText(String.valueOf(tweet.heartCount - 1));
+                                    if (tweet.heartCount > 0){
+                                        tvHeartCount.setText(String.valueOf(tweet.heartCount - 1));
+                                    }
                                     tweet.favorited = updatedTweet.getBoolean("favorited");
                                     tweet.heartCount = updatedTweet.getInt("favorite_count");
 
