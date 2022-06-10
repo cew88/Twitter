@@ -12,6 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -20,6 +23,7 @@ import com.codepath.apps.restclienttemplate.ComposeActivity;
 import com.codepath.apps.restclienttemplate.ComposeFragment;
 import com.codepath.apps.restclienttemplate.ProfileActivity;
 import com.codepath.apps.restclienttemplate.R;
+import com.codepath.apps.restclienttemplate.TimelineActivity;
 import com.codepath.apps.restclienttemplate.TwitterApp;
 import com.codepath.apps.restclienttemplate.TwitterClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
@@ -162,9 +166,9 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                                 JSONObject updatedTweet = json.jsonObject;
 
                                 try {
+                                    // Calls to API are slow, update manually the text for more seamless UX
                                     ivHeart.setImageResource(R.drawable.heart_filled);
                                     tvHeartCount.setText(String.valueOf(tweet.heartCount + 1));
-
                                     tweet.favorited = updatedTweet.getBoolean("favorited");
                                     tweet.heartCount = updatedTweet.getInt("favorite_count");
                                 } catch (JSONException e) {
@@ -219,10 +223,18 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             ivReply.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent i = new Intent(view.getContext(), ComposeActivity.class);
-                    i.putExtra("User", tweet.user.screenName.toString());
-                    context.startActivity(i);
+//                    Intent i = new Intent(view.getContext(), ComposeActivity.class);
+//                    i.putExtra("User", tweet.user.screenName.toString());
+//                    context.startActivity(i);
 
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("User", tweet.user.screenName);
+
+                    FragmentManager fragmentManager = ((FragmentActivity) view.getContext()).getSupportFragmentManager();
+                    ComposeFragment composeFragment = ComposeFragment.newInstance();
+                    composeFragment.setArguments(bundle);
+                    composeFragment.show(fragmentManager, "composeFragment");
                 }
             });
         }

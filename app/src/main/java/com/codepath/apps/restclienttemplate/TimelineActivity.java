@@ -234,8 +234,8 @@ public class TimelineActivity extends AppCompatActivity {
 
     private void showEditDialog() {
         FragmentManager fm = getSupportFragmentManager();
-        ComposeFragment editNameDialogFragment = ComposeFragment.newInstance();
-        editNameDialogFragment.show(fm, "composeFragment");
+        ComposeFragment composeFragment = ComposeFragment.newInstance();
+        composeFragment.show(fm, "composeFragment");
         // Refresh the page after closing the dialog or a tweet is submitted
         fetchTimelineAsync(0);
     }
