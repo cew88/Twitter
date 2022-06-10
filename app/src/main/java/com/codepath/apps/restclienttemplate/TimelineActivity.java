@@ -182,10 +182,9 @@ public class TimelineActivity extends AppCompatActivity {
                 // Intent i = new Intent(this, ComposeActivity.class);
                 // startActivityForResult(i, REQUEST_CODE);
                 // return true;
-            case R.id.profile_btn:
-                Intent i = new Intent(this, ProfileActivity.class);
-
-                // TO DO
+//            Issue: Unable to get the profile of the user logged in
+//            case R.id.profile_btn:
+//                Intent i = new Intent(this, ProfileActivity.class);
 //                i.putExtra("User", Parcels.wrap(tweets.get(0).user));
 //                startActivity(i);
             default:
