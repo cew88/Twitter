@@ -162,10 +162,11 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                                 JSONObject updatedTweet = json.jsonObject;
 
                                 try {
+                                    ivHeart.setImageResource(R.drawable.heart_filled);
+                                    tvHeartCount.setText(String.valueOf(tweet.heartCount + 1));
+
                                     tweet.favorited = updatedTweet.getBoolean("favorited");
                                     tweet.heartCount = updatedTweet.getInt("favorite_count");
-                                    ivHeart.setImageResource(R.drawable.heart_filled);
-                                    tvHeartCount.setText(tweet.heartCount.toString());
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -185,10 +186,13 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                                 Log.d("ItemClicked", "onSuccess!");
 
                                 try {
+                                    // Calls to API are slow, update manually the text for more seamless UX
+                                    ivHeart.setImageResource(R.drawable.heart);
+                                    // tvHeartCount.setText(tweet.heartCount.toString());
+                                    tvHeartCount.setText(String.valueOf(tweet.heartCount - 1));
                                     tweet.favorited = updatedTweet.getBoolean("favorited");
                                     tweet.heartCount = updatedTweet.getInt("favorite_count");
-                                    ivHeart.setImageResource(R.drawable.heart);
-                                    tvHeartCount.setText(tweet.heartCount.toString());
+
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }

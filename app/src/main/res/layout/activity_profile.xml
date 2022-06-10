@@ -7,10 +7,18 @@
     tools:context=".ProfileActivity">
 
     <ImageView
+        android:id="@+id/ivBanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:srcCompat="@tools:sample/backgrounds/scenic"/>
+
+    <ImageView
         android:id="@+id/ivProfileImageProf"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginTop="90dp"
         tools:srcCompat="@tools:sample/avatars"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivCloseProfile"/>
@@ -20,10 +28,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Name"
+        android:textSize="16sp"
         android:textStyle="bold"
-        android:textColor="#14171A"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="5dp"
+        android:textColor="@color/bold_text"
+        android:layout_marginTop="@dimen/item_margin"
+        android:layout_marginStart="@dimen/item_margin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ivProfileImageProf"/>
 
@@ -32,10 +41,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Username"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginTop="@dimen/item_margin"
+        android:layout_marginStart="@dimen/item_margin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvNameProf"/>
+
+    <TextView
+        android:id="@+id/tvDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:layout_marginTop="@dimen/item_margin"
+        android:layout_marginStart="@dimen/item_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvScreenNameProf"/>
 
     <TextView
         android:id="@+id/tvFollowingCount"
@@ -43,21 +62,21 @@
         android:layout_height="wrap_content"
         android:text="0"
         android:textStyle="bold"
-        android:textColor="#14171A"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="5dp"
+        android:textColor="@color/bold_text"
+        android:layout_marginTop="@dimen/item_margin"
+        android:layout_marginStart="@dimen/item_margin"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvScreenNameProf"/>
+        app:layout_constraintTop_toBottomOf="@id/tvDescription"/>
 
     <TextView
         android:id="@+id/tvFollowing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Following"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginTop="@dimen/item_margin"
+        android:layout_marginStart="@dimen/item_margin"
         app:layout_constraintStart_toEndOf="@id/tvFollowingCount"
-        app:layout_constraintTop_toBottomOf="@id/tvScreenNameProf"/>
+        app:layout_constraintTop_toBottomOf="@id/tvDescription"/>
 
     <TextView
         android:id="@+id/tvFollowerCount"
@@ -65,26 +84,34 @@
         android:layout_height="wrap_content"
         android:text="0"
         android:textStyle="bold"
-        android:textColor="#14171A"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="5dp"
+        android:textColor="@color/bold_text"
+        android:layout_marginTop="@dimen/item_margin"
+        android:layout_marginStart="@dimen/item_margin"
         app:layout_constraintStart_toEndOf="@id/tvFollowing"
-        app:layout_constraintTop_toBottomOf="@id/tvScreenNameProf"/>
+        app:layout_constraintTop_toBottomOf="@id/tvDescription"/>
 
     <TextView
         android:id="@+id/tvFollower"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Followers"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginTop="@dimen/item_margin"
+        android:layout_marginStart="@dimen/item_margin"
         app:layout_constraintStart_toEndOf="@id/tvFollowerCount"
-        app:layout_constraintTop_toBottomOf="@id/tvScreenNameProf"/>
+        app:layout_constraintTop_toBottomOf="@id/tvDescription"/>
 
     <ImageView
         android:id="@+id/ivCloseProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/close" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvTweetsProf"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/item_margin"
+        app:layout_constraintTop_toBottomOf="@id/tvFollower"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

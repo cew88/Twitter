@@ -16,6 +16,10 @@ public class User {
     public Integer followingCount;
     public Integer followerCount;
     public String profileImageUrl;
+    public String description;
+    public String bannerUrl;
+    public Boolean defaultProf;
+    public long id;
 
     //Empty constructor needed by Parceler library
     public User(){}
@@ -25,8 +29,17 @@ public class User {
         user.name = jsonObject.getString("name");
         user.screenName = jsonObject.getString("screen_name");
         user.profileImageUrl = jsonObject.getString("profile_image_url_https");
+        user.defaultProf = jsonObject.getBoolean("default_profile");
+
+        // Check if the user has updated a profile banner
+        if (!user.defaultProf){
+            user.bannerUrl = jsonObject.getString("profile_banner_url");
+        }
+
         user.followingCount = jsonObject.getInt("friends_count");
         user.followerCount = jsonObject.getInt("followers_count");
+        user.description = jsonObject.getString("description");
+        user.id = jsonObject.getLong("id");
         return user;
     }
 }

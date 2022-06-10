@@ -22,7 +22,6 @@ public class Tweet {
     public User user;
     public JSONObject extendedEntities;
     public String displayUrl = "";
-    public Integer replyCount;
     public Integer heartCount;
     public Integer retweetCount;
     public boolean favorited;
@@ -38,8 +37,6 @@ public class Tweet {
         tweet.heartCount = jsonObject.getInt("favorite_count");
         tweet.retweetCount = jsonObject.getInt("retweet_count");
         tweet.id = jsonObject.getLong("id");
-        // Reply count only available to premium users
-        // tweet.replyCount = jsonObject.getInt("reply_count");
         tweet.favorited = jsonObject.getBoolean("favorited");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
 
