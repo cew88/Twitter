@@ -8,11 +8,11 @@
 <!--        android:title="Compose"-->
 <!--        app:showAsAction="ifRoom"/>-->
 
-        <item
-            android:id="@+id/profile_btn"
-            android:icon="@drawable/profile"
-            android:title="Compose"
-            app:showAsAction="ifRoom"/>
+<!--        <item-->
+<!--            android:id="@+id/profile_btn"-->
+<!--            android:icon="@drawable/profile"-->
+<!--            android:title="Compose"-->
+<!--            app:showAsAction="ifRoom"/>-->
 
     <item
         android:id="@+id/logout_btn"

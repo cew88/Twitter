@@ -99,10 +99,9 @@ public class TimelineActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-//                Intent i = new Intent(view.getContext(), ComposeActivity.class);
-//                i.putExtra("User", "");
-//                startActivityForResult(i, REQUEST_CODE);
-
+                // Intent i = new Intent(view.getContext(), ComposeActivity.class);
+                // i.putExtra("User", "");
+                // startActivityForResult(i, REQUEST_CODE);
 
                 Bundle bundle = new Bundle();
                 bundle.putString("User", "");
@@ -236,8 +235,9 @@ public class TimelineActivity extends AppCompatActivity {
         FragmentManager fm = getSupportFragmentManager();
         ComposeFragment composeFragment = ComposeFragment.newInstance();
         composeFragment.show(fm, "composeFragment");
-        // Refresh the page after closing the dialog or a tweet is submitted
-        fetchTimelineAsync(0);
+        // Refresh the page after closing the dialog or a tweet is submitted <-- NOT NECESSARY
+        // the activity is restarted when the Tweet button is clicked
+        // fetchTimelineAsync(0);
     }
 
 }
