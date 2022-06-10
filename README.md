@@ -46,13 +46,11 @@ The following **additional** features are implemented:
 
 ## Video Walkthrough
 
-Here's a walkthrough of implemented user stories:
-
-<img src='[http://i.imgur.com/link/to/your/gif/file.gif]' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+Here's a walkthrough of implemented user stories: https://imgur.com/a/emtUA4Z
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+Ran into issues with updating the like count instantly. I was using the updated count from the respond JSON, however, since it takes some time to update the database, the like count did not update instantly. I manually increased/decreased the shown favorite counts in order to make the user experience more seamless. I also ran into issues inserting a newly published tweet on the timeline activity from the compose modal. I had trouble passing information from the fragment back to the activity, so I ended up just refreshing the whole page when a new tweet was published from the compose modal. 
 
 ## Open-source libraries used
 
